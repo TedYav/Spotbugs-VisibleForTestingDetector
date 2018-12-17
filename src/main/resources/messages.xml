@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MessageCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="messagecollection.xsd">
+
+  <Plugin>
+    <ShortDescription>Visible for Testing Invocation Plugin</ShortDescription>
+    <Details>This plugin checks that all methods annotated with @VisibleForTesting are only called within their declaring class, or in test code. Any other usages will cause errors. This allows developers to safely expose methods as package-private for testing purposes, while ensuring that incorrect usages of these methods will break a build.</Details>
+  </Plugin>
+
+  <Detector class="io.tedy.spotbugsplugin.visiblefortestingdetector.VisibleForTestingDetector">
+    <Details>
+      Detects TVIS_BAD_INVOKE_VISIBLE_FOR_TESTING bug pattern.
+    </Details>
+  </Detector>
+
+  <BugPattern type="TVIS_BAD_INVOKE_VISIBLE_FOR_TESTING">
+    <ShortDescription>Invalid invocation of @VisibleForTesting method.</ShortDescription>
+    <LongDescription>
+      @VisibleForTesting is supposed to be used to make private methods package-private for writing test cases. As such, such methods should be called only within the class in which they are declared, or in a test class. This plugin assumes that a test class will be named xxTest. To remove this error, ensure you are only using the flagged method within its declare class or in test code, or remove the annotation.
+    </LongDescription>
+    <Details>
+<![CDATA[
+<p>@VisibleForTesting is supposed to be used to make private methods package-private for writing test cases. As such, such methods should be called only within the class in which they are declared, or in a test class. This plugin assumes that a test class will be named xxTest. To remove this error, ensure you are only using the flagged method within its declare class or in test code, or remove the annotation.</p>
+]]>
+    </Details>
+  </BugPattern>
+
+  <BugCode abbrev="MY">My SpotBugs BugCode</BugCode>
+</MessageCollection>

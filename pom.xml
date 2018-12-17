@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.tedy.spotbugsplugin</groupId>
+  <artifactId>visiblefortestingdetector</artifactId>
+  <version>0.0.1-alpha</version>
+
+  <name>Spotbugs Visible for Testing Detector</name>
+  <description>
+    Spotbugs Plugin to Detect @VisibleForTesting Abuse.
+    Inspired by: https://writeoncereadmany.wordpress.com/2016/04/08/how-to-find-bugs-part-3-visiblefortesting/
+  </description>
+  <url>http://tedy.io</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <properties>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spotBugsVersion>3.1.9</spotBugsVersion>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>27.0.1-jre</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs</artifactId>
+      <version>${spotBugsVersion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>test-harness</artifactId>
+      <version>${spotBugsVersion}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <version>1.0.2</version>
+        <executions>
+          <execution>
+            <id>validate-spotbugs-configuration</id>
+            <goals>
+              <goal>validate</goal>
+            </goals>
+            <configuration>
+              <validationSets>
+                <validationSet>
+                  <dir>src/main/resources</dir>
+                  <includes>
+                    <include>findbugs.xml</include>
+                  </includes>
+                  <systemId>findbugsplugin.xsd</systemId>
+                </validationSet>
+                <validationSet>
+                  <dir>src/main/resources</dir>
+                  <includes>
+                    <include>messages.xml</include>
+                  </includes>
+                  <systemId>messagecollection.xsd</systemId>
+                </validationSet>
+              </validationSets>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>${spotBugsVersion}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+</project>

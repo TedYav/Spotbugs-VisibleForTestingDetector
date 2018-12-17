@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindbugsPlugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="findbugsplugin.xsd"
+        pluginid="io.tedy.visiblefortestingdetector.visiblefortestingdetector">
+
+        <Detector class="io.tedy.spotbugsplugin.visiblefortestingdetector.VisibleForTestingDetector" reports="TVIS_BAD_INVOKE_VISIBLE_FOR_TESTING" speed="fast" />
+
+        <BugPattern abbrev="TVIS" type="TVIS_BAD_INVOKE_VISIBLE_FOR_TESTING" category="CORRECTNESS" />
+</FindbugsPlugin>
